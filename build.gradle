@@ -2,20 +2,45 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.google.guava:guava:22.0'
-        classpath 'com.android.tools.build:gradle:3.0.1'
+
+        classpath 'com.android.tools.build:gradle:3.1.4'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+plugins {
+    // https://github.com/ben-manes/gradle-versions-plugin
+    // https://dev.jlelse.de/posts/gradle-dependency-updates/
+    id 'com.github.ben-manes.versions' version '0.20.0'
+}
+
+configurations {
+    // https://docs.gradle.org/current/userguide/customizing_dependency_resolution_behavior.html#sec:component_selection_rules
+    rejectConfig {
+        dependencyUpdates.resolutionStrategy {
+            componentSelection { rules ->
+                rules.all { ComponentSelection selection ->
+                    boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                        selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+                    }
+                    if (rejected) {
+                        selection.reject('Release candidate')
+                    }
+                }
+            }
+        }
+    }
+}
+
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
 }
