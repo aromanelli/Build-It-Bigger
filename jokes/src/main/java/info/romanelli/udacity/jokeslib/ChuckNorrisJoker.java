@@ -17,7 +17,7 @@ public class ChuckNorrisJoker implements Joker {
 
     private AtomicBoolean abJokesFetched = new AtomicBoolean(false);
 
-    ChuckNorrisJoker() {
+    public ChuckNorrisJoker() {
 
         this.randomizer = new Random(
                 (long) (new Date().getTime() / Math.PI)

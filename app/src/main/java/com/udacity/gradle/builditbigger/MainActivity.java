@@ -2,13 +2,19 @@ package com.udacity.gradle.builditbigger;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import info.romanelli.udacity.jokeslib.ChuckNorrisJoker;
+import info.romanelli.udacity.jokeslib.Joker;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    private Joker joker = new ChuckNorrisJoker(); // TODO AOR TEMPORARY FOR TESTING ONLY
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+        Toast.makeText(
+                this,
+                // TODO AOR TEMPORARY FOR TESTING ONLY ...
+                Html.fromHtml(joker.getRandomJoke().getText()),
+                Toast.LENGTH_LONG
+        ).show();
     }
 
 
