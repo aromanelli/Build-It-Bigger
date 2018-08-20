@@ -3,6 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,13 +47,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Toast.makeText(
-                this,
-                // TODO AOR TEMPORARY FOR TESTING ONLY ...
-                Html.fromHtml(joker.getRandomJoke().getText()),
-                Toast.LENGTH_LONG
-        ).show();
+        // TODO AOR TEMPORARY, FOR TESTING PURPOSES ONLY ...
+        // https://stackoverflow.com/questions/2116162/how-to-display-html-in-textview
+        Spanned text;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            text = Html.fromHtml(joker.getRandomJoke().getText(), Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            text = Html.fromHtml(joker.getRandomJoke().getText());
+        }
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
-
 
 }
