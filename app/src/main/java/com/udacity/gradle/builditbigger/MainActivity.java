@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.MobileAds;
+import com.udacity.gradle.builditbigger.databinding.ActivityMainBinding;
 
 import info.romanelli.udacity.jokeslib.ChuckNorrisJoker;
 import info.romanelli.udacity.jokeslib.Joker;
@@ -19,6 +21,8 @@ import timber.log.Timber;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    ActivityMainBinding mBinding;
 
     private Joker joker = new ChuckNorrisJoker(); // TODO AOR TEMPORARY FOR TESTING ONLY
 
@@ -32,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         // *MUST* happen before setContentView! (Fragment's onCreateView called on setContentView!)
         MobileAds.initialize(MainActivity.this, getString(R.string.admob_app_id));
 
-        setContentView(R.layout.activity_main);
+        // setContentView(R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
     }
 
