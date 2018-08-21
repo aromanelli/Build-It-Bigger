@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Joke Viewer</string>
+    <string name="msg_no_joke_to_show">I have no joke to show you.  This is no a laughing matter.</string>
+</resources>
