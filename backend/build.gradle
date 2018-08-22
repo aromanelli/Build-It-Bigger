@@ -34,3 +34,23 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:1.24.1'
     implementation 'com.google.http-client:google-http-client-android:1.24.1'
 }
+
+// NOTE! 'Path_Google_Cloud_SDK' is set in the Gradle GLOBAL 'gradle.properties'
+//       file, which is located *outside* of this project hierarchy!
+appengine.tools.cloudSdkHome=Path_Google_Cloud_SDK
+// If the Google Cloud SDK is in your computer's PATH, you can ignore/remove above!
+
+// Define deployment configuration using the new App Engine plugin with the appengine closure
+// https://cloud.google.com/endpoints/docs/frameworks/java/migrating-android#update_the_backendbuildgradle
+appengine {  // App Engine tasks configuration
+    deploy {   // deploy configuration
+        // The following is used for acceptance tests
+        // and is not required for a migration.
+        project = findProperty("appengine.deploy.project")
+        version = findProperty("appengine.deploy.version")
+        def promoteProp = findProperty("appengine.deploy.promote")
+        if (promoteProp != null) {
+            promote = new Boolean(promoteProp)
+        }
+    }
+}
