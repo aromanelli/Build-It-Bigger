@@ -25,6 +25,8 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
 
+    implementation project(':jokes')
+
     implementation 'com.google.guava:guava:26.0-jre'
 
     implementation 'com.google.endpoints:endpoints-framework:2.1.2'
@@ -53,4 +55,9 @@ appengine {  // App Engine tasks configuration
             promote = new Boolean(promoteProp)
         }
     }
+// https://stackoverflow.com/questions/7534967/is-there-any-way-to-access-gae-dev-app-server-in-the-local-network
+//    run {
+//        host = "0.0.0.0"
+//        port = 8080
+//    }
 }
