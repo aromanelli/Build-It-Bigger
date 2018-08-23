@@ -6,8 +6,16 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:2.0.0'
-        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.5'
+// Moved to project build.gradle
+//        classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:2.0.0'
+//        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.5'
+//
+//        // https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j
+//        classpath 'javax.xml.bind:jaxb-api:2.3.0'
+//        classpath 'com.sun.xml.bind:jaxb-core:2.3.0'
+//        classpath 'com.sun.xml.bind:jaxb-impl:2.3.0'
+//        classpath 'javax.activation:activation:1.1.1'
+
     }
 }
 
@@ -35,6 +43,13 @@ dependencies {
     implementation 'javax.servlet:servlet-api:2.5'
     implementation 'com.google.api-client:google-api-client:1.24.1'
     implementation 'com.google.http-client:google-http-client-android:1.24.1'
+
+//    // https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j
+//    implementation 'javax.xml.bind:jaxb-api:2.3.0'
+//    implementation 'com.sun.xml.bind:jaxb-core:2.3.0'
+//    implementation 'com.sun.xml.bind:jaxb-impl:2.3.0'
+//    implementation 'javax.activation:activation:1.1.1'
+
 }
 
 // NOTE! 'Path_Google_Cloud_SDK' is set in the Gradle GLOBAL 'gradle.properties'

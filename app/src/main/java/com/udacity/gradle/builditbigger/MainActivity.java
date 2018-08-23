@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,16 +14,17 @@ import android.widget.TextView;
 import com.google.android.gms.ads.MobileAds;
 import com.udacity.gradle.builditbigger.databinding.ActivityMainBinding;
 
-import info.romanelli.udacity.jokeslib.ChuckNorrisJoker;
-import info.romanelli.udacity.jokeslib.Joker;
 import timber.log.Timber;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity
+        extends AppCompatActivity
+        implements EndpointsAsyncTask.Listener {
 
     ActivityMainBinding mBinding;
 
-    private Joker joker = new ChuckNorrisJoker(); // TODO AOR TEMPORARY FOR TESTING ONLY
+    final static private String KEY_INTENT_TO_LAUNCH = "intentToLaunch";
+    private Intent intentToLaunch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,17 @@ public class MainActivity extends AppCompatActivity {
         // setContentView(R.layout.activity_main);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        if (savedInstanceState != null) {
+            intentToLaunch = savedInstanceState.getParcelable("KEY_INTENT_TO_LAUNCH");
+        }
+
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable("KEY_INTENT_TO_LAUNCH", intentToLaunch);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_tell_joke) {
+            tellJoke(findViewById(R.id.action_tell_joke));
             return true;
         }
 
@@ -66,37 +76,43 @@ public class MainActivity extends AppCompatActivity {
 
     public void tellJoke(View view) {
 
-        // Purify/clean-up the joke text, removing any non-viewing formatting text ...
-        // https://stackoverflow.com/questions/2116162/how-to-display-html-in-textview
-        CharSequence text;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            text = Html.fromHtml(joker.getRandomJoke().getText(), Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            text = Html.fromHtml(joker.getRandomJoke().getText());
-        }
-
         // Create an Intent to notify the joke viewer that we have a joke to read ...
-        Intent intent = new Intent();
+        intentToLaunch = new Intent();
         // REVIEWER: Realize I could of used an explicit intent, but I wanted to try out an implicit intent, for learning purposes.
-        // Intent intent = new Intent(this, JokeViewerActivity.class); // new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, text);
+        // Intent intent = new Intent(this, JokeViewerActivity.class);
+        intentToLaunch.setAction(Intent.ACTION_VIEW);
+        intentToLaunch.setType("text/plain");
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            // Show app that can view jokes ...
-            startActivity(intent);
+        if (intentToLaunch.resolveActivity(getPackageManager()) != null) {
+            //noinspection unchecked
+            new EndpointsAsyncTask().execute(this);
         } else {
             // No app is available; notify user, then quit ...
             Snackbar snackbar = Snackbar
-                    .make(view, "No joke viewer is available.", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("CLOSE", view1 -> finish());
+                    .make(view, getString(R.string.msg_no_viewer), Snackbar.LENGTH_INDEFINITE)
+                    .setAction(getString(R.string.close), view1 -> finish());
             View sbView = snackbar.getView();
             TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(Color.YELLOW);
             snackbar.show();
+            intentToLaunch = null;
         }
 
+    }
+
+    @Override
+    public void fetchedJoke(String text) {
+
+        if (intentToLaunch == null)
+            throw new IllegalStateException("Expected a non-null Intent reference!");
+
+        // Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+
+        // Add the joke text to the existing/passed-in Intent ...
+        intentToLaunch.putExtra(Intent.EXTRA_TEXT, text);
+
+        // Show app that can view jokes ...
+        startActivity(intentToLaunch);
     }
 
 }

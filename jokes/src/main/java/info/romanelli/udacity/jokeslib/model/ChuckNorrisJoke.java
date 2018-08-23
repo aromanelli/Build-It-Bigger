@@ -31,7 +31,7 @@ public class ChuckNorrisJoke implements Joke {
         return id;
     }
 
-    public String getText() {
+    public String getJoke() {
         return text;
     }
 

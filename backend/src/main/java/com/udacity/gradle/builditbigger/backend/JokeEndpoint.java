@@ -6,7 +6,6 @@ import com.google.api.server.spi.config.ApiNamespace;
 
 import info.romanelli.udacity.jokeslib.ChuckNorrisJoker;
 import info.romanelli.udacity.jokeslib.Joker;
-import info.romanelli.udacity.jokeslib.model.Joke;
 
 /** An endpoint class we are exposing */
 @Api(
@@ -25,26 +24,17 @@ public class JokeEndpoint {
         joker = new ChuckNorrisJoker();
     }
 
-    @ApiMethod(name = "getJoke")
+    @ApiMethod(name = "getRandomJoke")
     public JokeBean getJoke() {
         JokeBean jokeBean = new JokeBean();
-        Joke joke;
+        String text;
         try {
-            joke = joker.getRandomJoke();
+            text = joker.getRandomJoke().getJoke();
         }  catch (IllegalStateException ise) {
-            // Joker hasn't completed fetching jokes from the Net yet
-            joke = new Joke() {
-                @Override
-                public String getText() {
-                    return "No jokes are available at this time.  Try again later.";
-                }
-                @Override
-                public int getId() {
-                    return Integer.MIN_VALUE;
-                }
-            };
+            // Most likely Joker hasn't completed fetching jokes from the Net yet
+            text = "No jokes are available at this time.  Try again later.";
         }
-        jokeBean.setJoke(joke);
+        jokeBean.setJoke(text);
         return jokeBean;
     }
 

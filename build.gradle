@@ -11,6 +11,21 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        // https://github.com/GoogleCloudPlatform/endpoints-framework-gradle-plugin/blob/master/ANDROID_README.md
+        // https://discuss.gradle.org/t/version-is-root-build-gradle-buildscript-is-overriding-subproject-buildscript-dependency-versions/20746/2
+        classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:2.0.0'
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.5'
+
+        // https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j
+        // https://stackoverflow.com/a/51235096/435519
+        // https://issuetracker.google.com/u/1/issues/72872257
+        // (Only needed when trying to use gradle from terminal with > 1.8 JDK
+//        classpath 'javax.xml.bind:jaxb-api:2.3.0'
+//        classpath 'com.sun.xml.bind:jaxb-core:2.3.0'
+//        classpath 'com.sun.xml.bind:jaxb-impl:2.3.0'
+//        classpath 'javax.activation:activation:1.1.1'
+
     }
 }
 

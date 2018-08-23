@@ -1,22 +1,16 @@
 package com.udacity.gradle.builditbigger.backend;
 
-import info.romanelli.udacity.jokeslib.model.Joke;
-
 /** The object model for the data we are sending through endpoints */
 public class JokeBean {
 
-    private Joke joke;
+    private String myJoke;
 
-    public Joke getJoke() {
-        return joke;
+    public String getJoke() {
+        return myJoke;
     }
 
-    public void setJoke(Joke joke) {
-        this.joke = joke;
-    }
-
-    public String getJokeText() {
-        return joke.getText();
+    public void setJoke(String joke) {
+        this.myJoke = joke;
     }
 
 }

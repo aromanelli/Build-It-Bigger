@@ -1,6 +1,6 @@
 package info.romanelli.udacity.jokeslib.model;
 
 public interface Joke {
-    String getText();
+    String getJoke();
     int getId();
 }
