@@ -27,7 +27,7 @@ public class ChuckNorrisJokerTest {
         listJokes = new ArrayList<>();
         listJokes.add(new Joke() {
             @Override
-            public String getText() {
+            public String getJoke() {
                 return "TEST1";
             }
 
@@ -38,7 +38,7 @@ public class ChuckNorrisJokerTest {
         });
         listJokes.add(new Joke() {
             @Override
-            public String getText() {
+            public String getJoke() {
                 return "TEST2";
             }
 
@@ -61,10 +61,10 @@ public class ChuckNorrisJokerTest {
     public void getJoke() {
         try {
             Joke joke = jokerStatic.getJoke(0);
-            assertEquals(joke.getText(), "TEST1");
+            assertEquals(joke.getJoke(), "TEST1");
             assertEquals(joke.getId(), Integer.MAX_VALUE);
             joke = jokerStatic.getJoke(1);
-            assertEquals(joke.getText(), "TEST2");
+            assertEquals(joke.getJoke(), "TEST2");
             assertEquals(joke.getId(), Integer.MAX_VALUE - 1);
         } catch (Exception e) {
             fail();
@@ -86,8 +86,8 @@ public class ChuckNorrisJokerTest {
             Joke joke = jokerStatic.getRandomJoke();
             assertNotNull(joke);
             assertTrue(joke.getId() >= 0);
-            assertNotNull(joke.getText());
-            assertTrue(joke.getText().trim().length() >= 1);
+            assertNotNull(joke.getJoke());
+            assertTrue(joke.getJoke().trim().length() >= 1);
         } catch (Exception e) {
             fail();
         }
@@ -136,8 +136,8 @@ public class ChuckNorrisJokerTest {
             Joke joke = jokerFetcher.getRandomJoke();
             assertNotNull(joke);
             assertTrue(joke.getId() >= 0);
-            assertNotNull(joke.getText());
-            assertTrue(joke.getText().trim().length() >= 1);
+            assertNotNull(joke.getJoke());
+            assertTrue(joke.getJoke().trim().length() >= 1);
         } catch (Exception e) {
             fail();
         }

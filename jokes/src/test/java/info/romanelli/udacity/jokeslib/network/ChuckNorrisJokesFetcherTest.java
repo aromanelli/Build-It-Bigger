@@ -55,8 +55,8 @@ public class ChuckNorrisJokesFetcherTest {
                 for (Joke joke : jokes) {
                     if (joke != null) {
                         assertTrue(joke.getId() > 0);
-                        assertTrue(joke.getText() != null);
-                        assertTrue(joke.getText().trim().length() >= 1);
+                        assertTrue(joke.getJoke() != null);
+                        assertTrue(joke.getJoke().trim().length() >= 1);
                     } else {
                         break;
                     }

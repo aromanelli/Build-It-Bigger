@@ -23,7 +23,6 @@ public class MainActivity
 
     ActivityMainBinding mBinding;
 
-    final static private String KEY_INTENT_TO_LAUNCH = "intentToLaunch";
     private Intent intentToLaunch;
 
     @Override

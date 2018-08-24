@@ -58,13 +58,17 @@ public class ChuckNorrisJokesFetcher implements JokesFetcher {
                 ChuckNorrisFetchedJokes fetchedJoke = gson.fromJson(json, ChuckNorrisFetchedJokes.class);
 
                 if (fetchedJoke == null) {
-                    System.err.println("Something bad happened fetching joke.");
-                    receiver.receiveJokes(null);
-                } else if (!"success".equals(fetchedJoke.getType())) {
-                    System.err.println("Something bad happened fetching joke ...");
+                    System.err.println("Something bad happened fetching joke! [1]");
+                    //noinspection ConstantConditions
                     System.err.println(fetchedJoke);
                     receiver.receiveJokes(null);
                 } else if (fetchedJoke.getValue() == null) {
+                    System.err.println("Something bad happened fetching joke! [2]");
+                    System.err.println(fetchedJoke);
+                    receiver.receiveJokes(null);
+                } else if (!"success".equals(fetchedJoke.getType())) {
+                    System.err.println("Something bad happened fetching joke! [3]");
+                    System.err.println(fetchedJoke);
                     receiver.receiveJokes(null);
                 } else {
                     receiver.receiveJokes( new ArrayList<>( fetchedJoke.getValue() ) );

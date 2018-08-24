@@ -24,7 +24,7 @@ public class ChuckNorrisJokeTest {
 
     @Test
     public void getJoke() {
-        assertEquals("You don't laugh at a Chuck Norris joke, you interpolate it.", joke.getText());
+        assertEquals("Chuck Norris deems you unworthy of hearing a joke about him.", joke.getJoke());
     }
 
     @Test

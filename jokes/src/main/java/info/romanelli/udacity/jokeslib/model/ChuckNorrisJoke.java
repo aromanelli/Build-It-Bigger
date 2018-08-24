@@ -16,7 +16,7 @@ public class ChuckNorrisJoke implements Joke {
     @SerializedName("joke")
     @Expose
     private String text =
-            "You don't laugh at a Chuck Norris joke, you interpolate it.";
+            "Chuck Norris deems you unworthy of hearing a joke about him.";
 
     @SerializedName("categories")
     @Expose

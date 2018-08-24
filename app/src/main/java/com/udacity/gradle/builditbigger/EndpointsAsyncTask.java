@@ -8,7 +8,7 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.udacity.gradle.builditbigger.backend.jokesApi.JokesApi;
 
-import java.io.IOException;
+import timber.log.Timber;
 
 public class EndpointsAsyncTask extends AsyncTask<EndpointsAsyncTask.Listener, Void, String> {
 
@@ -35,8 +35,9 @@ public class EndpointsAsyncTask extends AsyncTask<EndpointsAsyncTask.Listener, V
 
         try {
             return JOKES_API_SERVICE.getRandomJoke().execute().getJoke();
-        } catch (IOException e) {
-            return e.getMessage();
+        } catch (Exception e) {
+            Timber.e(e, "An error occurred when calling the jokes backend: %s", e.getMessage());
+            return null;
         }
 
     }
@@ -44,16 +45,21 @@ public class EndpointsAsyncTask extends AsyncTask<EndpointsAsyncTask.Listener, V
     @Override
     protected void onPostExecute(String result) {
 
-        // Purify/clean-up the joke text, removing any non-viewing formatting text ...
-        // https://stackoverflow.com/questions/2116162/how-to-display-html-in-textview
-        Spanned text;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            text = Html.fromHtml(result, Html.FROM_HTML_MODE_LEGACY);
+        if (result == null) {
+            listener.fetchedJoke(null);
         } else {
-            text = Html.fromHtml(result);
-        }
 
-        listener.fetchedJoke(text.toString());
+            // Purify/clean-up the joke text, removing any non-viewing formatting text ...
+            // https://stackoverflow.com/questions/2116162/how-to-display-html-in-textview
+            Spanned text;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                text = Html.fromHtml(result, Html.FROM_HTML_MODE_LEGACY);
+            } else {
+                text = Html.fromHtml(result);
+            }
+
+            listener.fetchedJoke(text.toString());
+        }
     }
 
     public interface Listener {
