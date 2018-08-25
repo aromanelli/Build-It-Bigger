@@ -1,12 +1,8 @@
 <resources>
 
-    <string name="app_name">Build it Bigger</string>
     <string name="instructions">Press the button for a delicious joke!</string>
     <string name="button_text">Tell Joke</string>
     <string name="action_tell_joke">Tell Joke</string>
-
-    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="admob_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <string name="msg_no_viewer">No joke viewer is available.</string>
     <string name="close">Close</string>

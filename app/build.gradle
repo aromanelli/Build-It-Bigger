@@ -41,7 +41,25 @@ android {
         }
     }
 
-    /* TODO AOR REVISIT THIS; FIND BEST SOLUTION. Be sure to read last answer in below SO link!
+    // https://developer.android.com/studio/build/build-variants
+    // Specifies one flavor dimension.
+    flavorDimensions "version"
+    productFlavors {
+        free {
+            // Assigns this product flavor to the "version" flavor dimension.
+            // This property is optional if you are using only one dimension.
+            dimension "version"
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+        paid {
+            dimension "version"
+            applicationIdSuffix ".paid"
+            versionNameSuffix "-paid"
+        }
+    }
+
+    /* TODO REVISIT THIS; FIND BEST SOLUTION. Be sure to read last answer in below SO link!
     https://stackoverflow.com/questions/44342455/more-than-one-file-was-found-with-os-independent-path-meta-inf-license
 
     Exception: Caused by: com.android.builder.merge.DuplicateRelativeFileException:
@@ -83,8 +101,6 @@ dependencies {
     implementation project(':jokeviewer')
 
     implementation 'com.android.support:multidex:1.0.3'
-
-    implementation 'com.jakewharton.timber:timber:4.7.1'
 
     implementation 'com.google.guava:guava:26.0-android'
 

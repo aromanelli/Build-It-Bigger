@@ -3,14 +3,13 @@ package com.udacity.gradle.builditbigger;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-
-import timber.log.Timber;
 
 
 /**
@@ -35,10 +34,9 @@ public class MainActivityFragment extends Fragment {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
-        Timber.i("onCreate: Loading banner ad");
+        Log.d(this.getClass().getSimpleName(), "onCreate: Loading banner ad");
         // Note: Make all calls to the Mobile Ads SDK on the main thread.
         mAdView.loadAd(adRequest);
-
 
         return root;
     }
