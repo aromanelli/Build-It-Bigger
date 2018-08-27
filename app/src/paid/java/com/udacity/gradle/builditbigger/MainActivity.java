@@ -6,13 +6,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.MobileAds;
 import com.udacity.gradle.builditbigger.databinding.ActivityMainBinding;
 
 import info.romanelli.udacity.jokeviewer.JokeViewerActivity;
@@ -30,14 +28,6 @@ public class MainActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        //noinspection ConstantConditions AS/IJ inspection does not know about flavors
-        if ("free".equalsIgnoreCase(BuildConfig.FLAVOR)) {
-            // (https://developers.google.com/admob/android/quick-start#initialize_mobileads)
-            Log.d(this.getClass().getSimpleName(), "onCreate: Initializing AdMob");
-            // *MUST* happen before setContentView! (Fragment's onCreateView called on setContentView!)
-            MobileAds.initialize(MainActivity.this, getString(R.string.admob_app_id));
-        }
 
         // setContentView(R.layout.activity_main);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
