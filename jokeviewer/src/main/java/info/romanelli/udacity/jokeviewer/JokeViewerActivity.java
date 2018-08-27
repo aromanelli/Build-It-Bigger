@@ -14,7 +14,7 @@ public class JokeViewerActivity extends AppCompatActivity {
         setContentView(R.layout.joke_viewer);
 
         TextView tv = findViewById(R.id.tv_joke_viewer);
-        if (getIntent().getAction().equals(Intent.ACTION_VIEW) &&
+        if (Intent.ACTION_VIEW.equals(getIntent().getAction()) &&
                 "text/plain".equals(getIntent().getType())) {
             CharSequence cs = getIntent().getCharSequenceExtra(Intent.EXTRA_TEXT);
             if (!TextUtils.isEmpty(cs)) {
